@@ -1,0 +1,220 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english, russian]{babel}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{pdflscape}
+\usepackage{amssymb,amsfonts,amsmath}
+\usepackage{tikz}
+\usepackage{xspace}
+\usepackage{changepage}
+\usepackage{bytefield}
+\usepackage{enumerate}
+
+\usepackage{listingsutf8}
+\lstloadlanguages{C}
+\lstset
+{
+        language = C,
+		breaklines,
+		columns = fullflexible,
+		flexiblecolumns,
+		numbers = none,
+        basicstyle = \tt\fontsize{12pt}{12pt}\selectfont,
+        commentstyle = \bf,
+        showtabs = false, 
+        showspaces = false,
+        showstringspaces = false,
+        tabsize = 2,
+        inputencoding = utf8/cp1251,
+		frame = single,
+		showlines = true,
+		resetmargins = true
+}
+
+\usepackage{geometry}
+\geometry{left=2cm}
+\geometry{right=2cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+
+\renewcommand{\theenumi}{\arabic{enumi}.}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\theenumiv}{.\arabic{enumiv}}
+
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+%\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+%\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+
+% Переопределение \caption
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1.}
+\renewcommand{\@makecaption}[2]{%
+\vspace{\abovecaptionskip}%
+\sbox{\@tempboxa}{#1: #2}
+\ifdim \wd\@tempboxa >\hsize
+   #1: #2\par
+\else
+   \global\@minipagefalse
+   \hbox to \hsize {\hfil \small Рисунок \thefigure~<<#2>>\hfil}%
+\fi
+\vspace{\belowcaptionskip}}
+\makeatother
+
+\newcommand{\mysection}[1]
+{
+	\clearpage
+	\setcounter{figure}{0}
+	\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+	\section{#1}
+}
+
+\newcommand{\mylabsection}[1]
+{
+	\clearpage
+	\setcounter{figure}{0}
+	\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+	\section*{#1}
+	\addcontentsline{toc}{section}{\hskip 16pt #1}
+	\addtocounter{section}{1}
+	\setcounter{subsection}{0}
+}
+
+\newcommand{\intro}
+{
+	\clearpage
+	\setcounter{figure}{0}
+	\renewcommand{\thefigure}{\arabic{figure}}
+	\section*{Введение}
+	\addcontentsline{toc}{section}{\hskip 16pt Введение}
+	\input{content/intro}
+}
+
+\newcommand{\conclusion}
+{
+	\clearpage
+	\setcounter{figure}{0}
+	\renewcommand{\thefigure}{\arabic{figure}}
+	\section*{Заключение}
+	\addcontentsline{toc}{section}{\hskip 16pt Заключение}
+	\input{content/conclusion}
+}
+
+\newcommand{\mysubsection}[1]
+{
+	\setcounter{figure}{0}
+	\renewcommand{\thefigure}{\thesubsection.\arabic{figure}}
+	\subsection{#1}
+}
+
+\newcommand{\mysubsubsection}[1]
+{
+	\setcounter{figure}{0}
+	\renewcommand{\thefigure}{\thesubsubsection.\arabic{figure}}
+	\subsubsection{#1}
+}
+
+\makeatletter
+\renewcommand{\tableofcontents}
+{
+	\clearpage
+	\par{\bf \Large \noindent \centerline{Содержание}}
+	\par
+	\@starttoc{toc}
+}
+\makeatother
+
+\makeatletter 
+\renewcommand\appendix
+{
+        \par
+        \setcounter{section}{0}%
+		\setcounter{figure}{0}%
+        \gdef\thesection{\@Asbuk\c@section}
+}
+\makeatother
+
+\newcommand\myappendix[1]
+{
+		\clearpage
+        \refstepcounter{section}
+		\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+        
+        \section*{\centering{Приложение~\thesection}}
+        \begin{center}
+                \Large \bf #1
+        \end{center}
+        
+        \addcontentsline{toc}{section}{Приложение~\thesection:~#1}
+}
+
+\newcommand{\mysource}[2]
+{
+        \refstepcounter{figure}
+		\label{listing:#2}
+		{
+			\begin{center}
+
+			\lstinputlisting[]{#1#2}
+			\nopagebreak
+			
+			\medskip
+			{\noindent \small Листинг~\thefigure~---~Содержимое~файла~<<#2>>}
+			
+			\end{center}
+		}
+}
+
+% Листинги внутри локумента
+%
+% \mylistingbegin{Метка в listing:}{Подпись}
+% \begin{lstlisting}
+% \end{listing}
+% \mylistingend
+%
+
+\newcommand{\mylistingcaption}{}
+\newcommand{\mylistinglabel}{}
+
+\newcommand{\mylistingbegin}[2]
+{
+	\refstepcounter{figure}
+	\renewcommand{\mylistingcaption}{\vbox{\small \centering Листинг~\thefigure~-~#2}}
+	\renewcommand{\mylistinglabel}{\label{listing:#1}}
+	\begin{adjustwidth}{-\leftmargin}{\rightmargin}
+	\begin{minipage}{\textwidth}
+}
+
+\newcommand{\mylistingend}
+{
+	\mylistingcaption
+	\mylistinglabel
+	\end{minipage}
+	\end{adjustwidth}
+}
+
+\newcommand{\mimage}[4]
+{
+	\vbox
+	{
+		\begin{center}
+
+			\refstepcounter{figure}
+			\label{image:#1}
+			
+			\includegraphics[#4]{image/#2.png}
+
+			\medskip
+			{\noindent \small Рис.~\thefigure~-~#3}
+
+		\end{center}
+	}
+}
+

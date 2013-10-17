@@ -1,0 +1,144 @@
+%\documentclass[12pt, utf8]{G7-32-kurs}
+\documentclass[12pt]{article}
+\usepackage[14pt]{extsizes}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[T2A]{fontenc}
+%\usepackage[english, russian]{babel}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{float}
+\usepackage{pdflscape}
+\usepackage{bytefield}
+\usepackage{enumerate}
+
+%\usepackage{indentfirst}
+%\usepackage[multiple]{footmisc}
+
+\usepackage{listingsutf8}
+\lstloadlanguages{C}
+\lstset
+{
+        language=C,
+		breaklines,
+		columns=fullflexible,
+		flexiblecolumns,
+		numbers=none,
+        basicstyle=\tt\fontsize{12pt}{12pt}\selectfont,
+        commentstyle=\bf,
+        showtabs=false, 
+        showspaces=false,
+        showstringspaces=false,
+        tabsize=2,
+        inputencoding=utf8/cp1251,
+		frame=single,
+		showlines=true
+}
+
+%\usepackage{ltxtable}
+%\usepackage{tabularx}
+%\usepackage{longtable}
+%\usepackage{array}
+%\usepackage{multirow}
+%\setlength{\extrarowheight}{2pt}
+%\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%\newcolumntype{Z}{>{\small\centering\arraybackslash}p{1.5cm}}
+%\newcolumntype{M}[1]{>{\small\centering\arraybackslash}p{#1}}
+%\newcolumntype{N}{>{\small\centering\arraybackslash}X}
+%\setlength{\LTcapwidth}{\textwidth}
+
+\usepackage{amssymb,amsfonts,amsmath}
+%\usepackage{amssymb,amsfonts,amsmath,mathtext,cite,enumerate}
+
+%\EqInChapter
+%\TableInChapter
+%\PicInChapter
+
+\usepackage{geometry}
+\geometry{left=2cm}
+\geometry{right=2cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+
+\graphicspath{{image/}}
+
+%\renewcommand{\theenumi}{\arabic{enumi}.}
+%\renewcommand{\theenumii}{\arabic{enumii}}
+%\renewcommand{\theenumiii}{.\arabic{enumiii}}
+%\renewcommand{\theenumiv}{.\arabic{enumiv}}
+
+%\renewcommand{\labelenumi}{\arabic{enumi}.}
+%\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+%\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+%\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+
+%\renewcommand{\rmdefault}{mcr} % Courier New
+
+\makeatletter 
+\renewcommand\appendix
+{
+	\par
+	\setcounter{chapter}{0}%
+	\setcounter{section}{0}%
+	\gdef\thechapter{\@Asbuk\c@chapter}
+}
+\makeatother
+
+\newcommand\myappendix[1]
+{
+	\refstepcounter{chapter}
+	
+	\chapter*{\centering{Приложение~\thechapter}}
+	\begin{center}
+		\large \bf #1
+	\end{center}
+	
+	\addcontentsline{toc}{chapter}{Приложение~\thechapter:~#1}
+}
+
+\newcommand{\mysource}[2]
+{
+        \refstepcounter{figure}
+		\label{listing:#2}
+		{
+			\centering{Листинг~\thefigure~---~Содержимое~файла~<<#2>>}
+			\nopagebreak
+			\lstinputlisting[]{#1#2}
+			\bigskip
+		}
+}
+
+% \mimage{test}{test}{Тестовый рисунок}{width=\linewidth}
+
+%\newcommand\mimage[4]
+%{
+
+%	\begin{center}
+		
+%		\begin{figure}[H]
+	
+%			\includegraphics[#4]{#2.png}
+%			\caption{#3}
+%			\label{image:#1}
+	
+%		\end{figure}
+
+%	\end{center}
+%}
+
+\newcommand\mimage[4]
+{
+	\vbox
+	{
+		\begin{center}
+			
+			\refstepcounter{figure}
+			\label{image:#1}
+			\includegraphics[#4]{#2.png}
+
+			{\noindent Рисунок~\thefigure~---~#3}
+
+		\end{center}
+	}
+}
+

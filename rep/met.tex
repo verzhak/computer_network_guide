@@ -1,0 +1,59 @@
+
+\input{various/decor-lab}
+
+\newcommand{\linux}{ОС GNU/Li\-n\-ux}
+\newcommand{\virtpo}{VMWare}
+
+\newcommand{\first}{10.0.1.128}
+\newcommand{\second}{10.0.2.128}
+\newcommand{\midethf}{eth0}
+\newcommand{\mideths}{eth1}
+\newcommand{\midf}{10.0.1.1}
+\newcommand{\mids}{10.0.2.1}
+
+\newcommand{\mytitle}{<<Курс лабораторных работ\\по дисциплине <<Вычислительные сети>>\\для ОС GNU/Linux>>}
+\newcommand{\tfirst}{Настройка подключения вычислительной системы к локальной вычислительной сети}
+\newcommand{\tsecond}{Протоколы транспортного уровня стека протоколов TCP/IP}
+\newcommand{\tthird}{Протоколы сетевого уровня стека протоколов TCP/IP}
+\newcommand{\tfourth}{Перехват сетевого трафика. Межсетевой экран netfilter}
+
+\begin{document}
+
+	\input{various/title-lab.tex} 
+
+	\tableofcontents
+
+	\newcommand{\labplan}[2]
+	{
+		\mylabsection{Лабораторная работа № #1 <<#2>>}
+
+			\mysubsection{Цель работы}
+
+				\input{lab/#1/goal}
+
+			\mysubsection{Теоретическая часть}
+
+				\input{lab/#1/theory}
+
+			\mysubsection{Практическая часть}
+
+				\input{lab/#1/practice}
+
+			\mysubsection{Защита отчета по лабораторной работе}
+
+				\input{lab/#1/question}
+	}
+
+	\labplan{1}{\tfirst}
+	\labplan{2}{\tsecond}
+	\labplan{3}{\tthird}
+	\labplan{4}{\tfourth}
+
+	\appendix
+
+	\myappendix{Некоторые приемы работы с ОС GNU/Linux с использованием интерфейса командной строки}
+
+		\input{appendix/command}
+
+\end{document}
+
